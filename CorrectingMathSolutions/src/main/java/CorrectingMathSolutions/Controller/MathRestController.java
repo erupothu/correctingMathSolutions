@@ -1,7 +1,5 @@
 package CorrectingMathSolutions.Controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import CorrectingMathSolutions.model.MathModel;
+import CorrectingMathSolutions.service.MathJavaService;
 import CorrectingMathSolutions.service.MathService;
 
 @RestController
@@ -18,11 +17,22 @@ public class MathRestController {
 	@Autowired
 	private MathService mathService;
 	
+	@Autowired
+	private MathJavaService mathJavaService;
+	
 	//Rules
 	@GetMapping("/hello")
 	public String hello(){
 		return "Hello Harish Good morning!!!";
 	}
+	
+	@GetMapping("/my-sample-project")
+	public String myProject(@RequestParam String query){
+		String response = "";
+		response = mathJavaService.getResponse(query);
+		return response;
+	}
+	
 	
 	// Rule Table crud Operations
 	@GetMapping("/all-math-problems")
